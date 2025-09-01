@@ -1,159 +1,533 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galeria do Retiro</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f4f9;
-      color: #333;
-    }
-    header {
-      background: #4a148c;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-    h2 {
-      text-align: center;
-      margin: 30px 0 15px;
-      color: #4a148c;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 10px;
-      padding: 20px;
-    }
-    .gallery img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 1000;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80%;
-      border-radius: 10px;
-    }
-    .lightbox a {
-      margin-top: 15px;
-      background: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      color: #4a148c;
-      font-weight: bold;
-    }
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 30px;
-      color: #fff;
-      cursor: pointer;
-    }
-    .download-all {
-      display: block;
-      text-align: center;
-      margin: 20px;
-    }
-    .download-all a {
-      background: #4a148c;
-      color: #fff;
-      padding: 12px 25px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotos do Retiro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tab-button {
+            padding: 1rem 1.8rem;
+            background-color: #e9ecef;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-button:hover {
+            background-color: #dee2e6;
+            transform: translateY(-2px);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tab-button.disabled {
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            cursor: not-allowed;
+        }
+        
+        .tab-button.highlight {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        .tab-button.highlight:hover {
+            background-color: #ffca2c;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            aspect-ratio: 4/3;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1.2rem;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+        
+        .download-btn {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        }
+        
+        .gallery-item:hover .download-btn {
+            opacity: 1;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.1);
+            background-color: white;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            overflow: auto;
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: 2% auto;
+            display: block;
+            width: auto;
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+        
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 1001;
+        }
+        
+        .close:hover {
+            color: #ff5252;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-style: italic;
+            color: #6c757d;
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #6a11cb;
+            color: #343a40;
+        }
+        
+        .info-box {
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            background-color: #343a40;
+            color: white;
+            margin-top: 4rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #6a11cb;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tab-button {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+            
+            .close {
+                top: 15px;
+                right: 25px;
+                font-size: 35px;
+            }
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.65rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.375rem;
+            background-color: #6a11cb;
+            color: white;
+            margin-left: 0.5rem;
+        }
+        
+        .instructions {
+            background-color: #f8f9fa;
+            border-left: 4px solid #6a11cb;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 1rem;
+            color: #6a11cb;
+        }
+        
+        .instructions ol {
+            margin-left: 1.5rem;
+        }
+        
+        .instructions li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .instructions code {
+            background-color: #e9ecef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Galeria do Retiro</h1>
-    <p>Veja e baixe as fotos do nosso retiro ✨</p>
-  </header>
+    <header>
+        <div class="container">
+            <h1>Fotos do Retiro</h1>
+            <p class="tagline">Reviva os melhores momentos e baixe suas lembranças</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="info-box">
+            <p><i class="fas fa-info-circle"></i> As fotos estão organizadas por cartão de memória. O Cartão 02 estará disponível em breve.</p>
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-rocket"></i> Como usar este site no GitHub Pages</h3>
+            <ol>
+                <li>Faça upload deste arquivo HTML para seu repositório GitHub (pode nomear como <code>index.html</code>)</li>
+                <li>Crie uma pasta chamada <code>fotos</code> no seu repositório</li>
+                <li>Dentro da pasta <code>fotos</code>, crie as pastas <code>cartao01</code> e <code>obra-prima</code></li>
+                <li>Faça upload das suas fotos para as pastas correspondentes</li>
+                <li>Ative o GitHub Pages nas configurações do seu repositório</li>
+                <li>Substitua os URLs das imagens no código JavaScript pelos caminhos reais das suas fotos</li>
+            </ol>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" data-tab="cartao01">
+                <i class="fas fa-sd-card"></i> Cartão 01
+            </button>
+            <button class="tab-button disabled" data-tab="cartao02">
+                <i class="fas fa-sd-card"></i> Cartão 02 <span class="badge">Em breve</span>
+            </button>
+            <button class="tab-button highlight" data-tab="obraprima">
+                <i class="fas fa-laugh"></i> Obra Prima
+            </button>
+        </div>
+        
+        <div id="cartao01" class="tab-content active">
+            <h2 class="section-title">Fotos do Cartão 01</h2>
+            <div class="gallery" id="gallery-cartao01">
+                <!-- As fotos serão carregadas aqui via JavaScript -->
+                <div class="loading">Carregando fotos do Cartão 01...</div>
+            </div>
+        </div>
+        
+        <div id="cartao02" class="tab-content">
+            <h2 class="section-title">Fotos do Cartão 02</h2>
+            <div class="gallery" id="gallery-cartao02">
+                <div class="loading">Aguardando as fotos do Cartão 02. Em breve!</div>
+            </div>
+        </div>
+        
+        <div id="obraprima" class="tab-content">
+            <h2 class="section-title">Obra Prima <i class="fas fa-gem"></i></h2>
+            <p>As fotos mais engraçadas e memoráveis do retiro!</p>
+            <div class="gallery" id="gallery-obraprima">
+                <!-- As fotos da pasta Obra Prima serão carregadas aqui via JavaScript -->
+                <div class="loading">Carregando as fotos engraçadas da Obra Prima...</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="imageModal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Fotos do Retiro - Todos os direitos reservados</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p>Entre em contato: retiro@exemplo.com</p>
+        </div>
+    </footer>
 
-  <h2>📸 Cartão de Fotos 01</h2>
-  <div class="gallery">
-    <img src="fotos/cartao1/foto1.jpg" alt="Foto 1">
-    <img src="fotos/cartao1/foto2.jpg" alt="Foto 2">
-    <img src="fotos/cartao1/foto3.jpg" alt="Foto 3">
-  </div>
-
-  <h2>🤣 Obra Prima (Cartão 01)</h2>
-  <div class="gallery">
-    <img src="fotos/cartao1/obra-prima/engracada1.jpg" alt="Foto engraçada 1">
-    <img src="fotos/cartao1/obra-prima/engracada2.jpg" alt="Foto engraçada 2">
-  </div>
-
-  <div class="download-all">
-    <a href="fotos/cartao1.zip" download>📦 Baixar todas do Cartão 01 (ZIP)</a>
-  </div>
-
-  <h2>📸 Cartão de Fotos 02</h2>
-  <div class="gallery">
-    <p style="text-align:center; width:100%;">⏳ Em breve: aguardando envio das fotos do cartão 02</p>
-  </div>
-
-  <h2>🤣 Obra Prima (Cartão 02)</h2>
-  <div class="gallery">
-    <p style="text-align:center; width:100%;">⏳ Em breve: aguardando envio das fotos engraçadas do cartão 02</p>
-  </div>
-
-  <div class="download-all">
-    <a href="#" onclick="alert('As fotos do Cartão 02 ainda não foram enviadas!')">📦 Baixar todas do Cartão 02 (em breve)</a>
-  </div>
-
-  <div class="lightbox" id="lightbox">
-    <span class="close" id="close">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-    <a id="download-link" href="#" download>⬇️ Baixar esta foto</a>
-  </div>
-
-  <script>
-    const gallery = document.querySelectorAll('.gallery img');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const downloadLink = document.getElementById('download-link');
-    const closeBtn = document.getElementById('close');
-
-    gallery.forEach(img => {
-      img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
-        downloadLink.href = img.src;
-      });
-    });
-
-    closeBtn.addEventListener('click', () => {
-      lightbox.style.display = 'none';
-    });
-  </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos da interface
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+            
+            // Controle das abas
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (button.classList.contains('disabled')) return;
+                    
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Ativar/desativar botões
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Mostrar/ocultar conteúdo
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Fechar modal
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            // Fechar modal clicando fora da imagem
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Carregar fotos do Cartão 01
+            const galleryCartao01 = document.getElementById('gallery-cartao01');
+            loadPhotos(galleryCartao01, 12, "Cartão 01 - Foto");
+            
+            // Carregar fotos da Obra Prima
+            const galleryObraPrima = document.getElementById('gallery-obraprima');
+            loadPhotos(galleryObraPrima, 9, "Obra Prima - Foto", true);
+            
+            function loadPhotos(galleryElement, count, prefix, isFunny = false) {
+                // Limpar mensagem de carregamento
+                galleryElement.innerHTML = '';
+                
+                // URLs de exemplo - SUBSTITUA COM OS CAMINHOS REAIS DAS SUAS FOTOS
+                // Formato esperado: 
+                // - Para fotos do Cartão 01: "fotos/cartao01/foto1.jpg"
+                // - Para fotos da Obra Prima: "fotos/obra-prima/foto1.jpg"
+                
+                for (let i = 1; i <= count; i++) {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    
+                    // URL de exemplo - SUBSTITUA com o caminho real da sua foto
+                    const imgUrl = isFunny ? 
+                        `fotos/obra-prima/foto${i}.jpg` : 
+                        `fotos/cartao01/foto${i}.jpg`;
+                    
+                    const photoName = `${prefix} ${i}`;
+                    
+                    galleryItem.innerHTML = `
+                        <img src="${imgUrl}" alt="${photoName}" onerror="this.src='https://picsum.photos/600/400?random=${i}'">
+                        <div class="overlay">${photoName}</div>
+                        <button class="download-btn" onclick="downloadImage('${imgUrl}', '${photoName}.jpg')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    `;
+                    
+                    galleryItem.addEventListener('click', function(e) {
+                        if (e.target !== this.querySelector('.download-btn')) {
+                            modalImage.src = imgUrl;
+                            modal.style.display = 'block';
+                        }
+                    });
+                    
+                    galleryElement.appendChild(galleryItem);
+                }
+            }
+        });
+        
+        // Função para download de imagens
+        function downloadImage(url, filename) {
+            // Impedir a propagação do evento para não abrir o modal
+            event.stopPropagation();
+            
+            // Em um ambiente real, isso precisaria de um backend para funcionar corretamente
+            // Esta é uma solução simplificada que pode não funcionar em todos os navegadores
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = blobUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(blobUrl);
+                    document.body.removeChild(a);
+                })
+                .catch(() => alert('Erro ao baixar a imagem. Tente novamente.'));
+        }
+    </script>
 </body>
 </html>
