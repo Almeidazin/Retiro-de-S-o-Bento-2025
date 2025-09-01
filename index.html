@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotos do Retiro - Compartilhamento</title>
+    <title>Fotos do Retiro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -246,81 +246,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
-        .upload-section {
-            background: linear-gradient(to right, #fff4e6, #ffe8cc);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #fd7e14;
-        }
-        
-        .upload-section h3 {
-            color: #fd7e14;
-            margin-bottom: 1rem;
-        }
-        
-        .instructions {
-            background-color: #f8f9fa;
-            border-left: 4px solid #6a11cb;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .instructions h3 {
-            margin-bottom: 1rem;
-            color: #6a11cb;
-        }
-        
-        .instructions ol {
-            margin-left: 1.5rem;
-        }
-        
-        .instructions li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .instructions code {
-            background-color: #e9ecef;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-        
-        .url-box {
-            background-color: #2b2b2b;
-            color: #f8f8f2;
-            padding: 1rem;
-            border-radius: 4px;
-            margin: 1rem 0;
-            overflow-x: auto;
-            font-family: monospace;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-decoration: none;
-            margin-top: 1rem;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
-        }
-        
         footer {
             text-align: center;
             padding: 2.5rem 0;
@@ -386,62 +311,19 @@
             color: white;
             margin-left: 0.5rem;
         }
-        
-        .step {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-        }
-        
-        .step-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: #6a11cb;
-            color: white;
-            text-align: center;
-            line-height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <h1>Fotos do Retiro</h1>
-            <p class="tagline">Compartilhe as melhores lembranças com todos</p>
+            <p class="tagline">Reviva os melhores momentos e baixe suas lembranças</p>
         </div>
     </header>
     
     <div class="container">
         <div class="info-box">
-            <p><i class="fas fa-info-circle"></i> As fotos estão organizadas por cartão de memória. Use o GitHub Pages para hospedar e compartilhar com todos.</p>
-        </div>
-        
-        <div class="instructions">
-            <h3><i class="fas fa-rocket"></i> Como compartilhar com todos</h3>
-            
-            <div class="step">
-                <h4><span class="step-number">1</span> Hospede suas fotos no GitHub</h4>
-                <p>Faça upload das suas fotos para um repositório no GitHub (pasta <code>fotos/cartao01</code> e <code>fotos/obra-prima</code>)</p>
-            </div>
-            
-            <div class="step">
-                <h4><span class="step-number">2</span> Ative o GitHub Pages</h4>
-                <p>No repositório, vá em Settings > Pages > Selecione a branch main e pasta /root > Save</p>
-            </div>
-            
-            <div class="step">
-                <h4><span class="step-number">3</span> Acesse o site</h4>
-                <p>Seu site estará disponível em:</p>
-                <div class="url-box">https://seuusuario.github.io/nome-do-repositorio</div>
-                <p>Compartilhe este link com todos!</p>
-            </div>
-            
-            <a href="https://github.com" target="_blank" class="btn">Criar Repositório no GitHub</a>
+            <p><i class="fas fa-info-circle"></i> As fotos estão organizadas por cartão de memória. O Cartão 02 estará disponível em breve.</p>
         </div>
         
         <div class="tabs">
@@ -459,9 +341,8 @@
         <div id="cartao01" class="tab-content active">
             <h2 class="section-title">Fotos do Cartão 01</h2>
             <div class="gallery" id="gallery-cartao01">
-                <div class="loading" id="loading-cartao01">
-                    <p>Carregando fotos do Cartão 01...</p>
-                </div>
+                <!-- As fotos serão carregadas aqui via JavaScript -->
+                <div class="loading">Carregando fotos do Cartão 01...</div>
             </div>
         </div>
         
@@ -476,25 +357,9 @@
             <h2 class="section-title">Obra Prima <i class="fas fa-gem"></i></h2>
             <p>As fotos mais engraçadas e memoráveis do retiro!</p>
             <div class="gallery" id="gallery-obraprima">
-                <div class="loading" id="loading-obraprima">
-                    <p>Carregando as fotos engraçadas da Obra Prima...</p>
-                </div>
+                <!-- As fotos da pasta Obra Prima serão carregadas aqui via JavaScript -->
+                <div class="loading">Carregando as fotos engraçadas da Obra Prima...</div>
             </div>
-        </div>
-        
-        <div class="upload-section">
-            <h3><i class="fas fa-link"></i> Configurar URLs das Fotos</h3>
-            <p>Se você já hospedou suas fotos no GitHub, cole abaixo o URL base do seu repositório:</p>
-            
-            <div class="url-box" id="baseUrlDisplay">https://seuusuario.github.io/repositorio/fotos/</div>
-            
-            <p>O site tentará carregar automaticamente as fotos de:</p>
-            <ul>
-                <li><code>https://seuusuario.github.io/repositorio/fotos/cartao01/</code></li>
-                <li><code>https://seuusuario.github.io/repositorio/fotos/obra-prima/</code></li>
-            </ul>
-            
-            <a href="#" class="btn btn-secondary" id="changeUrlBtn">Alterar URL Base</a>
         </div>
     </div>
     
@@ -523,12 +388,6 @@
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
             const closeModal = document.getElementById('closeModal');
-            const changeUrlBtn = document.getElementById('changeUrlBtn');
-            const baseUrlDisplay = document.getElementById('baseUrlDisplay');
-            
-            // URL base para as fotos (pode ser personalizado)
-            let baseUrl = localStorage.getItem('photosBaseUrl') || 'https://exemplo.github.io/retiro-fotos/fotos/';
-            baseUrlDisplay.textContent = baseUrl;
             
             // Controle das abas
             tabButtons.forEach(button => {
@@ -559,51 +418,32 @@
                 }
             });
             
-            // Alterar URL base
-            changeUrlBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const newUrl = prompt('Cole o URL base para suas fotos (ex: https://usuario.github.io/repositorio/fotos/):', baseUrl);
-                if (newUrl) {
-                    baseUrl = newUrl;
-                    localStorage.setItem('photosBaseUrl', baseUrl);
-                    baseUrlDisplay.textContent = baseUrl;
-                    loadAllPhotos();
-                    alert('URL base atualizado! As fotos serão recarregadas.');
-                }
-            });
+            // Carregar fotos do Cartão 01
+            const galleryCartao01 = document.getElementById('gallery-cartao01');
+            loadPhotos(galleryCartao01, 12, "Cartão 01 - Foto");
             
-            // Inicializar - carregar todas as fotos
-            loadAllPhotos();
+            // Carregar fotos da Obra Prima
+            const galleryObraPrima = document.getElementById('gallery-obraprima');
+            loadPhotos(galleryObraPrima, 9, "Obra Prima - Foto", true);
             
-            // Função para carregar todas as fotos
-            function loadAllPhotos() {
-                loadPhotos('cartao01', 12);
-                loadPhotos('obraprima', 9);
-            }
-            
-            // Função para carregar fotos
-            function loadPhotos(category, count) {
-                const galleryElement = document.getElementById(`gallery-${category}`);
-                const loadingElement = document.getElementById(`loading-${category}`);
-                
-                // Mostrar loading
-                if (loadingElement) {
-                    loadingElement.innerHTML = '<p>Carregando fotos...</p>';
-                }
-                
-                // Limpar galeria
+            function loadPhotos(galleryElement, count, prefix, isFunny = false) {
+                // Limpar mensagem de carregamento
                 galleryElement.innerHTML = '';
                 
-                // Para cada foto, tentar carregar
                 for (let i = 1; i <= count; i++) {
-                    const imgUrl = `${baseUrl}${category}/foto${i}.jpg`;
-                    const photoName = category === 'cartao01' ? `Cartão 01 - Foto ${i}` : `Obra Prima - Foto ${i}`;
-                    
                     const galleryItem = document.createElement('div');
                     galleryItem.className = 'gallery-item';
                     
+                    // Usando placeholder - substitua com o caminho real da sua foto
+                    // Para a Obra Prima, uso imagens mais "divertidas"
+                    const imgUrl = isFunny ? 
+                        `https://picsum.photos/600/400?random=${100+i}&blur=2` : 
+                        `https://picsum.photos/600/400?random=${i}`;
+                    
+                    const photoName = `${prefix} ${i}`;
+                    
                     galleryItem.innerHTML = `
-                        <img src="${imgUrl}" alt="${photoName}" onerror="this.onerror=null; this.src='https://picsum.photos/600/400?random=${i}'">
+                        <img src="${imgUrl}" alt="${photoName}">
                         <div class="overlay">${photoName}</div>
                         <button class="download-btn" onclick="downloadImage('${imgUrl}', '${photoName}.jpg')">
                             <i class="fas fa-download"></i>
@@ -619,13 +459,6 @@
                     
                     galleryElement.appendChild(galleryItem);
                 }
-                
-                // Esconder loading após um tempo
-                setTimeout(() => {
-                    if (loadingElement) {
-                        loadingElement.style.display = 'none';
-                    }
-                }, 1500);
             }
         });
         
@@ -634,14 +467,22 @@
             // Impedir a propagação do evento para não abrir o modal
             event.stopPropagation();
             
-            // Técnica alternativa para download
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.target = '_blank';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            // Em um ambiente real, isso precisaria de um backend para funcionar corretamente
+            // Esta é uma solução simplificada que pode não funcionar em todos os navegadores
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = blobUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(blobUrl);
+                    document.body.removeChild(a);
+                })
+                .catch(() => alert('Erro ao baixar a imagem. Tente novamente.'));
         }
     </script>
 </body>
